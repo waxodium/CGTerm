@@ -12,14 +12,13 @@ The project is intentionally lightweight and serves as a foundation for experime
 * **Settings handling:** Basic file creation and management.
 
 ## Requirements
-- Go
+- Go install via:https://go.dev/dl/
 - 1mb storage
 
 ## Building & Running
 Building can be done via make or building direct via go
 1. clone this repository: `https://github.com/MasterArd/CGTerm.git`
 2. Run `Go build .` or `make` followed by `make run` or `./CGTerm`
-
 
 > [!NOTE]
 > **binaries can be found at https://github.com/MasterArd/CGTerm/releases/tag/v1**
