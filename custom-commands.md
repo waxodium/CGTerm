@@ -6,15 +6,16 @@ This guide explains how to create and register custom commands for your Go appli
 
 To create a valid custom command, your file must adhere to the following rules:
 
-- Package Name: Must be set to package commands.
+- Package Name: Must be set to `package commands`.
+
+- Uppercase function: The command function name must start with an uppercase letter to be accessible.
 
 - Initialization: Commands must be registered inside the init() function.
 
-- Uppercase function: The command function name must start with an uppercase letter (exported) to be accessible.
 
 2. Example: Creating a "Hello" Command
 
-Below is an example of how to implement a custom hello command. Save this file as something like hello.go inside your commands/ directory.
+Below is an example of how to implement a custom hello command. Save this file as something like hello.go inside your /commands/ directory.
 Go
 ```
 
@@ -35,4 +36,4 @@ func init() {
 
 ```
 
-``Register("hello",Hello)`` in this "hello" is the command name and Hello is the function name in your file.
+``Register("hello",Hello)`` in this **"hello"** is the command name and **Hello** is the function name in your file.
