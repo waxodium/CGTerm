@@ -5,6 +5,7 @@ This guide explains how to create and register custom commands for your Go appli
 1. Requirements
 
 To create a valid custom command, your file must adhere to the following rules:
+- function must pass in args []string after function name
 
 - Package Name: Must be set to `package commands`.
 
@@ -24,7 +25,7 @@ package commands
 import "fmt"
 
 // Hello is the function that will be executed when the command is called.
-func Hello() {
+func Hello(args []string) {
 	fmt.Println("Hello, World!")
 }
 
@@ -36,4 +37,4 @@ func init() {
 
 ```
 
-``Register("hello",Hello)`` in this **"hello"** is the command name and **Hello** is the function name in your file.
+``Register("hello",Hello)`` in this **"hello"** is the command name and **Hello** is the function name in your file and args []string is also required.
