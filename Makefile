@@ -14,3 +14,6 @@ build:
 clean:
 	go clean -cache
 	rm -f CGTerm
+
+compact:
+	upx --best ./CGTerm
