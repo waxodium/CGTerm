@@ -1,3 +1,4 @@
+
 <p align="center" >
     <img style="display: flex; justify-content: center; align-items: center; height: 250px" src="https://masterard.github.io/blue-inft/CGTerm.png" > 
 </p>
@@ -12,15 +13,17 @@ The project is intentionally lightweight and serves as a foundation for experime
 ## Features
 * **Interactive prompt:** Simple `-->` interface.
 * **Built-in commands:** common commands to help.
-* **Modular package structure:** Own commands can be easily added. To do this read [How to make custom commands](./custom-commands.md) 
+* **Modular package structure:** Own commands can be easily added. To do this read [How to make custom commands](./docs.md) 
 * **Basic terminal control:** Functions for clearing the screen and listing directories.
 
 ## Requirements
 - [Golang](https://go.dev/dl/)
 - 5mb+ storage
 
-## Building & Running
-Building can be done with make or building directly with go
+## Building & Installing
+
+### Builds
+Building can be done with ``make`` or building directly with ``go``
 
 1. clone CGTerm repository
 ```
@@ -32,16 +35,28 @@ cd CGTerm
 ```
 make build
 ```
-**with GO**
+or **with GO**
 ```
 go build .
 ```
+### Install
 
-> [!NOTE]
-> **binaries can be found at [Releases](https://github.com/MasterArd/CGTerm/releases/)**
+Installation: Manually move the built binary named ``CGTerm`` to the bin directory.
+```
+sudo mv CGTerm /usr/bin
+```
+
+[Sheh] works including any other commands. If CGTerm is installed.
+
+### Run CGTerm
+Once installed to the bin directory. Launch ``CGTerm``. 
+
+
+> **Binaries can be found at [Releases](https://github.com/MasterArd/CGTerm/releases/)**
 
 ## Available Commands
 
+### Standard commands
 | Command | Description |
 | :--- | :--- |
 | `host` | Prints the system hostname  |
@@ -53,8 +68,29 @@ go build .
 | `lsa` | List all files and directories |
 | `lsd` | List all directories but not files |
 | `lsf` | List all files but not directories |
+| `help`| Show help |
 
-> If an unknown command is entered, the program will return an error message.
+### External commands
+| Command | Details |
+| :--- | :--- |
+| `fastfetch` | May need fastfetch installed |
+| `sheh` | Required sheh and needed CGTerm installed |
+| `hello` | Print "Hello, World!"; |
+
+CGTerm will also recognize other's commands. Not just restrictions to these available listed commands.
+
+
+
+![Install](https://img.shields.io/badge/install-now-blue?logo=github)
+
+* [fastfetch]
+
+![Install](https://img.shields.io/badge/install-npm-red) 
+
+* [sheh]
+
+[fastfetch]: https://github.com/fastfetch-cli/fastfetch
+[sheh]: https://github.com/waxodium/sheh
 
 ## Project Structure
 ```text
@@ -76,6 +112,7 @@ contribution can be done by forking this repository and making a pull request.
 
 ### Issues:
 - `clear` displaying rogue `[` (fixed)
+- `sheh` blocking termination from CGTerm.
 
 
 ## dev notes:
