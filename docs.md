@@ -30,7 +30,7 @@ CGTerm has built-in commands. Standard and External:
 
 https://github.com/MasterArd/CGTerm/#available-commands
 
-If ``CGTerm`` is installed as done following from step 3. The shell will correctly interact with your terminal and all of the **External Commands** and others. 
+If ``CGTerm`` is installed as done following from step 3. The shell will correctly interact with your terminal and all of the **External Commands** 
 
 ## Making custom commands
 ### Custom Commands Guides

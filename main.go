@@ -4,61 +4,71 @@ import (
 	"CGTerm/commands"
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
+	"os/signal"
 	"strings"
 	"syscall"
+
 	"github.com/fatih/color"
+	"golang.org/x/sys/unix"
 )
 
 func main() {
-	syscall.Setsid()
 	fd := int(os.Stdin.Fd())
-	syscall.Syscall(syscall.SYS_IOCTL, uintptr(fd), uintptr(syscall.TIOCSCTTY), 0)
+
+	unix.Setpgid(0, 0)
+	signal.Ignore(syscall.SIGTTOU)
+	signal.Ignore(syscall.SIGTTIN)
+    signal.Ignore(syscall.SIGINT)
+
 	reader := bufio.NewReader(os.Stdin)
-	
 
-    fmt.Println("Welcome to CGTerm! Type 'exit' to quit;")
-	
+	fmt.Println("Welcome to CGTerm! Type 'exit' or press Ctrl+D to quit.")
 
-    for {
+	for {
 		fmt.Print("> ")
-		input, err := reader.ReadString('\n')
-		
-        if err != nil {
-			fmt.Println("Error reading input:", err)
-			break
-		}
-		
 
-        input = strings.TrimSpace(input)
-		if input == "" {
+		line, err := reader.ReadString('\n')
+		if err != nil {
+			if err == io.EOF {
+				break
+			}
 			continue
 		}
 
+		input := strings.TrimSpace(line)
+		if input == "" {
+			continue
+		}
+		if input == "exit" {
+			break
+		}
 
-
-        parts := strings.Split(input, " ")
+		parts := strings.Fields(input)
 		name := parts[0]
 		args := parts[1:]
 
-		cmd, exists := commands.Registry[name]
-		if !exists {
-			c := exec.Command(name, args...)
-			c.Stdout = os.Stdout
-			c.Stderr = os.Stderr
-			c.Stdin = os.Stdin
-			
+		cmdFunc, exists := commands.Registry[name]
+		if exists {
+			cmdFunc(args)
+			continue
+		}
 
-            if err := c.Run(); err != nil {
-				fmt.Printf("%s error: %s\n", color.RedString("[-]"), err)
-			}
-			
-            continue
-		
+		c := exec.Command(name, args...)
+		c.Stdout = os.Stdout
+		c.Stderr = os.Stderr
+		c.Stdin = os.Stdin
+		c.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 
-        }
+		if err := c.Start(); err != nil {
+			fmt.Fprintf(os.Stderr, "%s error: %s\n", color.RedString("[-]"), err)
+			continue
+		}
 
-		cmd(args)
+		unix.IoctlSetInt(fd, unix.TIOCSPGRP, c.Process.Pid)
+		c.Wait()
+		unix.IoctlSetInt(fd, unix.TIOCSPGRP, unix.Getpgrp())
 	}
 }

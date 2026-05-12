@@ -1,4 +1,3 @@
-
 <p align="center" >
     <img style="display: flex; justify-content: center; align-items: center; height: 250px" src="https://masterard.github.io/blue-inft/CGTerm.png" > 
 </p>
@@ -22,7 +21,7 @@ The project is intentionally lightweight and serves as a foundation for experime
 
 ## Building & Installing
 
-### Builds
+### Build from source
 Building can be done with ``make`` or building directly with ``go``
 
 1. clone CGTerm repository
@@ -39,14 +38,24 @@ or **with GO**
 ```
 go build .
 ```
-### Install
+#### Install
 
 Installation: Manually move the built binary named ``CGTerm`` to the bin directory.
 ```
-sudo mv CGTerm /usr/bin
+sudo mv cgterm /usr/bin
 ```
 
-[Sheh] works including any other commands. If CGTerm is installed.
+### Automatic make Install
+1. clone CGTerm repository
+```
+git clone https://github.com/MasterArd/CGTerm.git
+cd CGTerm
+```
+
+2. Use `make install` 
+```
+make install
+```
 
 ### Run CGTerm
 Once installed to the bin directory. Launch ``CGTerm``. 
@@ -76,9 +85,6 @@ Once installed to the bin directory. Launch ``CGTerm``.
 | `fastfetch` | May need fastfetch installed |
 | `sheh` | Required sheh and needed CGTerm installed |
 | `hello` | Print "Hello, World!"; |
-
-CGTerm will also recognize other's commands. Not just restrictions to these available listed commands.
-
 
 
 ![Install](https://img.shields.io/badge/install-now-blue?logo=github)
@@ -112,9 +118,10 @@ contribution can be done by forking this repository and making a pull request.
 
 ### Issues:
 - `clear` displaying rogue `[` (fixed)
-- `sheh` blocking termination from CGTerm.
+- `sheh` blocking termination from CGTerm. (fixed)
 
 
 ## dev notes:
 this is an improvement over `UAC`. *(old archive)*: https://masterard.github.io/blue-inft/News.html
+
 

@@ -9,11 +9,17 @@ run:
 
 build:
 	go clean -cache
-	go build -a -o CGTerm .
+	go build -a -o cgterm .
+	
 
 clean:
 	go clean -cache
-	rm -f CGTerm
+	rm -f cgterm
+
+install:
+	go clean -cache
+	go build -a -o cgterm .
+	sudo mv cgterm /usr/bin/
 
 compact:
-	upx --best ./CGTerm
+	upx --best ./cgterm

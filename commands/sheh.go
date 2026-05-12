@@ -4,18 +4,14 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"os/signal"
 	"strings"
-	"syscall"
 
 	"github.com/fatih/color"
 )
 
 func Sheh(args []string) {
-	fmt.Println(color.BlueString("If Sheh is not working as expected. CGTerm may need to install correctly"))
-	fmt.Println(color.CyanString("\nCheck: CGTerm manual install guide https://github.com/MasterArd/CGTerm/#README"))
-	fmt.Println(" ")
-	fmt.Println(color.CyanString("Thanks and special credit to waxory/waxodium: https://github.com/waxodium/ "))
+	fmt.Println(color.CyanString("Thanks and special credit to waxory/waxodium: https://github.com/waxodium/sheh "))
+    fmt.Println("")
 
 	_, err := exec.LookPath("sheh")
 	if err != nil {
@@ -40,22 +36,11 @@ func Sheh(args []string) {
 	cmd := exec.Command("sheh", args...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	cmd.Stdin = nil
-	cmd.SysProcAttr = &syscall.SysProcAttr{Setsid: true}
+	cmd.Stdin = os.Stdin
 
-	if err := cmd.Start(); err != nil {
-		fmt.Println(color.RedString("[-]"), "Execution error:", err)
-		return
+	if err := cmd.Run(); err != nil {
+		fmt.Printf("%s error: %s\n", color.RedString("[-]"), err)
 	}
-
-	sig := make(chan os.Signal, 1)
-	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
-	go func() {
-		s := <-sig
-		cmd.Process.Signal(s)
-	}()
-
-	fmt.Println("-->")
 }
 
 func init() {
