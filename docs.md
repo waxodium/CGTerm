@@ -1,3 +1,37 @@
+## Install
+To install CGTerm, build CGTerm from source.
+
+1. Clone CGTerm github repository
+```
+git clone https://github.com/MasterArd/CGTerm.git
+cd CGTerm
+```
+
+2. Build CGTerm
+```
+make build 
+```
+or use GO build
+
+```
+go build .
+```
+
+3. Manually move the binary file to the bin directory
+
+```
+sudo mv CGTerm /usr/bin
+```
+
+CGTerm will finally qualified as your shell and able to interact with your terminal.
+
+Launch ``CGTerm`` to the terminal.
+CGTerm has built-in commands. Standard and External:
+
+https://github.com/MasterArd/CGTerm/#available-commands
+
+If ``CGTerm`` is installed as done following from step 3. The shell will correctly interact with your terminal and all of the **External Commands** 
+
 ## Making custom commands
 ### Custom Commands Guides
 
@@ -39,7 +73,7 @@ func init() {
 
 If you want to write your new command in C. Use cgo preamble to link your C functions.
 
-- By creating a go file inside of commands/ directory with this template:
+- By creating a go file inside of the same commands/ directory with this template:
 
 ```go
 package commands
@@ -63,7 +97,10 @@ func init() {
 
 }
 ```
-with your actual c file from c/ directory. External library can be store in c/lib/ with just c and header file for each.
+> [!NOTE]
+> Please follow the standard syntax of CGO. Having the preamble or the comment block staying exactly no line breaks between ``import "C"``
+
+`#cgo CFLAGS: -I${SRCDIR}/c/lib` line MUST include if any exterior library is used. As libraries should be a simple `.c` file or header `.h` with C `.c`  file placed in `./commands/c/lib/` directory
 
 ```txt
 CGTerm
@@ -72,7 +109,8 @@ CGTerm
         └── lib/
 ```
 
+While standard C libraries function correctly without the `#cgo CFLAGS: -I${SRCDIR}/c/lib` directive, it should still be included to prevent potential library resolution issues when implementing custom commands.
 
-## Lastly, running your implements.
+###  Lastly, running your implements.
 
-By using ``make run`` or just ``go run .`` inside of CGTerm root folder
+By using `make run` or just `go run .` inside of CGTerm root folder, you'll get a resulted `CGTerm` output file if compiled successfully. 

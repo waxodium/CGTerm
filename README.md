@@ -12,15 +12,17 @@ The project is intentionally lightweight and serves as a foundation for experime
 ## Features
 * **Interactive prompt:** Simple `-->` interface.
 * **Built-in commands:** common commands to help.
-* **Modular package structure:** Own commands can be easily added. To do this read [How to make custom commands](./custom-commands.md) 
+* **Modular package structure:** Own commands can be easily added. To do this read [How to make custom commands](./docs.md) 
 * **Basic terminal control:** Functions for clearing the screen and listing directories.
 
 ## Requirements
 - [Golang](https://go.dev/dl/)
 - 5mb+ storage
 
-## Building & Running
-Building can be done with make or building directly with go
+## Building & Installing
+
+### Build from source
+Building can be done with ``make`` or building directly with ``go``
 
 1. clone CGTerm repository
 ```
@@ -32,16 +34,38 @@ cd CGTerm
 ```
 make build
 ```
-**with GO**
+or **with GO**
 ```
 go build .
 ```
+#### Install
 
-> [!NOTE]
-> **binaries can be found at [Releases](https://github.com/MasterArd/CGTerm/releases/)**
+Installation: Manually move the built binary named ``cgterm`` to the bin directory.
+```
+sudo mv cgterm /usr/bin
+```
+
+### Automatic make Install
+1. clone CGTerm repository
+```
+git clone https://github.com/MasterArd/CGTerm.git
+cd CGTerm
+```
+
+2. Use `make install` 
+```
+make install
+```
+
+### Run CGTerm
+Once installed to the bin directory. Launch ``CGTerm``. 
+
+
+> **Binaries can be found at [Releases](https://github.com/MasterArd/CGTerm/releases/)**
 
 ## Available Commands
 
+### Standard commands
 | Command | Description |
 | :--- | :--- |
 | `host` | Prints the system hostname  |
@@ -53,8 +77,26 @@ go build .
 | `lsa` | List all files and directories |
 | `lsd` | List all directories but not files |
 | `lsf` | List all files but not directories |
+| `help`| Show help |
 
-> If an unknown command is entered, the program will return an error message.
+### External commands
+| Command | Details |
+| :--- | :--- |
+| `fastfetch` | May need fastfetch installed |
+| `sheh` | Required sheh and needed CGTerm installed |
+| `hello` | Print "Hello, World!"; |
+
+
+![Install](https://img.shields.io/badge/install-now-blue?logo=github)
+
+* [fastfetch]
+
+![Install](https://img.shields.io/badge/install-npm-red) 
+
+* [sheh]
+
+[fastfetch]: https://github.com/fastfetch-cli/fastfetch
+[sheh]: https://github.com/waxodium/sheh
 
 ## Project Structure
 ```text
@@ -76,8 +118,10 @@ contribution can be done by forking this repository and making a pull request.
 
 ### Issues:
 - `clear` displaying rogue `[` (fixed)
+- `sheh` blocking termination from CGTerm. (fixed)
 
 
 ## dev notes:
 this is an improvement over `UAC`. *(old archive)*: https://masterard.github.io/blue-inft/News.html
+
 
