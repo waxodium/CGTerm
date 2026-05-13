@@ -34,7 +34,7 @@ cd CGTerm
 ```
 make build
 ```
-or **with GO**
+or **with Go**
 ```
 go build .
 ```
@@ -78,6 +78,7 @@ Once installed to the bin directory. Launch ``CGTerm``.
 | `lsd` | List all directories but not files |
 | `lsf` | List all files but not directories |
 | `help`| Show help |
+| `cd` | Change directories |
 
 ### External commands
 | Command | Details |
