@@ -54,7 +54,7 @@ make install
 ```
 
 ### Run CGTerm
-Once installed to the bin directory. Launch ``CGTerm``.
+Once installed to the bin directory. Launch ``cgterm``.
 
 
 > **Binaries can be found at [Releases](https://github.com/MasterArd/CGTerm/releases/)**
