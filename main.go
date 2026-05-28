@@ -78,14 +78,15 @@ func Firstlaunch() {
 	}
 	marker := filepath.Join(home, ".CGTerm_init")
 
-	// if file does  !exist > first run
+	// if file does NOT exist -> first run
 	if _, err := os.Stat(marker); os.IsNotExist(err) {
 
-		fmt.Println(color.RedString("WARNING:"))
-		fmt.Println(color.RedString("Sudo command is currently bugged and may crash."))
-		fmt.Println(color.RedString("Avoid using it until fixed."))
+		fmt.Println(color.CyanString("--FIRST-RUN--"))
+		fmt.Println(color.GreenString("This is probably your first time using CGTerm"))
+		fmt.Println(color.GreenString("Support this project on github: https://github.com/MasterArd/CGTerm/"))
+		fmt.Println(color.GreenString("This message will only show once"))
 
-		// create marker
+		// create marker file
 		file, err := os.Create(marker)
 		if err != nil {
 			fmt.Println("could not create marker file:", err)
