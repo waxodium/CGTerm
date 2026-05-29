@@ -1,8 +1,9 @@
 package main
 
 import (
-	"cgterm/commands"
 	"bufio"
+	"cgterm/commands"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -16,6 +17,11 @@ import (
 )
 
 func main() {
+	if err := ensureVersionFile(); err != nil {
+		fmt.Printf("Error: %v\n", err)
+	} else {
+		fmt.Println("File checked and initialized if needed.")
+	}
 	Firstlaunch()
 
 	reader := bufio.NewReader(os.Stdin)
@@ -94,4 +100,18 @@ func Firstlaunch() {
 		}
 		file.Close()
 	}
+}
+
+func ensureVersionFile() error {
+	file, err := os.OpenFile("version", os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0666)
+
+	if err != nil {
+		if errors.Is(err, os.ErrExist) {
+			return nil 
+		}
+		return err 
+	}
+	defer file.Close()
+	_, err = file.WriteString("1.3.1")
+	return err
 }
