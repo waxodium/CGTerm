@@ -65,7 +65,6 @@ Once installed to the bin directory. Launch ``cgterm``.
 | Command | Description |
 | :--- | :--- |
 | `host` | Prints the system hostname  |
-| `initscreen` | Displays basic screen configuration values |
 | `clear` | Clears the terminal screen |
 | `exit` | Exits the program |
 | `whoami` | Same as `host` |
@@ -121,4 +120,4 @@ contribution can be done by forking this repository and making a pull request.
 
 
 ## dev notes:
-this is an improvement over `UAC`. *(old archive)*: https://masterard.github.io/blue-inft/News.html
+this is an improvement over `UAC`. *(old archive)*: https://msad.online/projects

@@ -1,7 +1,6 @@
 package commands
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -30,53 +29,8 @@ func Host(args []string) {
 	fmt.Println("hostname:", name)
 }
 
-func Initscreen(args []string) {
-	const horizontalCharacter = "|"
-	const vertialCharacter = "-"
-	const screenSizeHorizontal = "40"
-	const screenSizeVertical = "60"
-	fmt.Println(horizontalCharacter, vertialCharacter, screenSizeHorizontal, screenSizeVertical)
-}
-
 func Exit(args []string) {
 	os.Exit(0)
-
-}
-
-func Save_settings(args []string) {
-	var overwriteInput string
-	_, err := os.Stat("gpkg_settings.json")
-	if err == nil {
-		fmt.Println("settings file already exists")
-		fmt.Println("do you want to overwrite it? [y/N]")
-		fmt.Scanln(&overwriteInput)
-		if overwriteInput == "y" {
-			os.Create("gpkg_settings.json")
-			fmt.Println("file created: gpkg_settings.json, and old overwritten")
-		} else {
-			fmt.Println("aborted")
-			return
-		}
-	}
-}
-
-func Read_test(args []string) {
-	// 1. Read the file into a byte slice
-	data, err := os.ReadFile("gpkg_settings.json")
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-		return
-	}
-
-	// 2. Unmarshal the bytes into your variable
-	var config map[string]any
-	err = json.Unmarshal(data, &config)
-	if err != nil {
-		fmt.Println("Error unmarshaling JSON:", err)
-		return
-	}
-
-	fmt.Println("Parsed Data:", config)
 
 }
 
@@ -166,19 +120,13 @@ func Cd(args []string) {
 	}
 }
 
-// move cursor to top left corner: fmt.Print("\033[H")
 func init() {
 	Register("hello", Hello)
 	Register("host", Host)
-	Register("initscreen", Initscreen)
 	Register("exit", Exit)
-	//Register("save_settings", Save_settings) <<<|
-	//Register("read_test", Read_test)		   <<<|- not usable
-	//Register("help", Help) <-- rewritten to ./CGTerm/c/help.c
 	Register("cd", Cd)
 	Register("lsd", Lsd)
 	Register("lsf", Lsf)
 	Register("lsa", Lsa)
 	Register("version", Version)
-
 }

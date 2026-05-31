@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"cgterm/commands"
 	"errors"
 	"fmt"
@@ -13,38 +12,47 @@ import (
 	"strings"
 	"syscall"
 
+	"github.com/chzyer/readline"
 	"github.com/fatih/color"
 )
 
 func main() {
 	if err := ensureVersionFile(); err != nil {
 		fmt.Printf("Error: %v\n", err)
-	} else {
-		fmt.Println("File checked and initialized if needed.")
 	}
+
 	Firstlaunch()
 
-	reader := bufio.NewReader(os.Stdin)
 	signal.Ignore(syscall.SIGTERM, syscall.SIGINT)
+
+	rl, err := readline.New("> ")
+	if err != nil {
+		panic(err)
+	}
+	defer rl.Close()
 
 	fmt.Println("Welcome to CGTerm! Type 'exit' or press Ctrl+D to quit.")
 
 	for {
-		fmt.Print("> ")
-
-		line, err := reader.ReadString('\n')
+		line, err := rl.Readline()
 		if err != nil {
+			if err == readline.ErrInterrupt {
+				continue
+			}
 			if err == io.EOF {
 				break
 			}
+
 			fmt.Println(err.Error())
 			break
 		}
 
 		input := strings.TrimSpace(line)
+
 		if input == "" {
 			continue
 		}
+
 		if input == "exit" {
 			break
 		}
@@ -61,14 +69,15 @@ func main() {
 
 		cmd := exec.Command(name, args...)
 		cmd.SysProcAttr = &syscall.SysProcAttr{
-			Setsid: true, // new session, so Ctrl+C goes to child's process group
+			Setsid: true,
 		}
+
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		cmd.Stdin = os.Stdin
 
 		if err := cmd.Start(); err != nil {
-			fmt.Fprintf(os.Stderr, "%s error: %s\n", color.RedString("[-]"), err)
+			fmt.Fprintf(os.Stderr, "[-] error: %s\n", err)
 			continue
 		}
 
@@ -107,9 +116,9 @@ func ensureVersionFile() error {
 
 	if err != nil {
 		if errors.Is(err, os.ErrExist) {
-			return nil 
+			return nil
 		}
-		return err 
+		return err
 	}
 	defer file.Close()
 	_, err = file.WriteString("1.3.1")
