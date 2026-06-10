@@ -10,12 +10,10 @@ void printHelp();
 */
 import (
 	"C"
-    "fmt"
 )
 
 func helpPrinter(args []string) {
-    fmt.Println("Help is currently being bug fixed,") // this will be removed once the bug is fixed
-	//C.printHelp()
+	C.printHelp()
 }
 
 func init() {
